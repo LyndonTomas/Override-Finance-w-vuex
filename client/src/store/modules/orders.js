@@ -19,9 +19,30 @@ const actions ={
         .then((response) => commit ("setOrders", response.data.orders))
         .catch((error) => commit("setError", error.response.data.msg))
     },
-    deleteOrder(id){
-        console.log(id.toString())
+    deleteOrder({commit} ,id){
         axios.patch(`${url}orders/delete/${id}`)
+        .then()
+        .catch((error) => commit("setError", error.response.data.msg))
+    },
+    searchByDate({commit}, date){
+        axios.get(`${url}orders/date/${date}`)
+        .then((response) => commit("setOrders", response.data.orders))
+        .catch((error) => commit("setError", error.response.data.msg))
+    },
+    setToDelivered({commit}, id){
+        axios.patch(`${url}orders/delivered/${id}`)
+        .then()
+        .catch(({response})=> {alert(response.data.msg); commit("setError", response.data.msg)})
+    },
+    setToPaid({commit}, id){
+        axios.patch(`${url}orders/paid/${id}`)
+        .then()
+        .catch(({response})=> {alert(response.data.msg); commit("setError", response.data.msg)})
+    },
+    filterStatus({commit}, payment, order){
+        axios.get(`${url}orders/status/${payment}/${order}`)
+        .then((response) => commit ("setOrders", response.data.orders))
+        .catch((error) => commit("setError", error.response.data.msg))
     }
 }
 
