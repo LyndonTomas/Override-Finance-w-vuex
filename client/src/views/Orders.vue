@@ -64,7 +64,8 @@
             <strong>{{order.item.quantity * order.item.price + order.fee}}</strong>
           </td>
           <td class="options">
-            <button class="btn btn-success">
+            <button @click="showReceipt(order._id, order.created_at, order.user.fullname.firstname, order.user.fullname.lastname, order.item.name, order.item.price, order.item.quantity, order.payment_method, order.payment_status, order.fee, 
+     order.user.full_address.house_number, order.user.full_address.street_name, order.user.full_address.province, order.user.full_address.city, order.user.full_address.district, order.user.full_address.barangay)" class="btn btn-success">
               <i class="far fa-edit"></i>
             </button>
             <button
@@ -79,6 +80,7 @@
 </template>
 
 <script>
+import jsPDF from 'jspdf';
 import {mapActions, mapState} from "vuex";
 export default {
   name: 'Orders',
@@ -124,7 +126,55 @@ export default {
       if (choice == true) {
         this.$router.push({ name: "Login" });
         }
-      }
+      },
+      showReceipt(id, date, fname, lname, itemName, price, quantity, payment_method, payment_status, fee, 
+     houseNumber, streetName, province, city, district, barangay){
+       var pdf = new jsPDF();
+      //  Order Id
+       pdf.text("OrderId : ", 5, 10);
+       pdf.text(id, 30, 10);
+     // Date 
+      pdf.text("Date: ", 5, 20);
+      pdf.text(date, 30, 20);
+     // Name
+      pdf.text("Customer Name: ", 5, 30);
+      pdf.text(fname+" "+lname, 50, 30);
+
+    // Item
+      pdf.text("Item Name: ", 5, 40);
+      pdf.text(itemName, 40, 40);
+    // Price
+      pdf.text("Price: ", 5, 50);
+      pdf.text(price.toString(), 30, 50);
+      // Quantity
+      pdf.text("Quantity: ", 5, 60);
+      pdf.text(quantity.toString(), 30, 60);
+      // Payment Method
+      pdf.text("Payment Method: ", 5, 70);
+      pdf.text(payment_method, 50, 70); 
+      // Payment Status
+      pdf.text("Payment Status: ", 5, 80);
+      pdf.text(payment_status, 50, 80);
+      // Fee
+      pdf.text("Fee: ", 5, 90);
+      pdf.text(fee.toString(), 30, 90);
+      // Shipping Address
+      pdf.text("Shipping Address: ", 5, 100);
+      pdf.text(houseNumber.toString()+" "+
+      streetName.toString()+" "+ 
+      barangay.toString()+" "+
+      district.toString()+" "+
+      city.toString()+" "+
+      province.toString(), 30, 110);
+
+      // Total
+      var total = (price*quantity)+fee;
+      pdf.text("Total: ", 5, 120);
+      pdf.text(total.toString(), 30, 120);
+
+       // Saving PDF 
+       pdf.save('report.pdf');
+    }
   },
   created(){
     this.fetchOrders();
