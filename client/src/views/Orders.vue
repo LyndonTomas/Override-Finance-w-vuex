@@ -18,6 +18,9 @@
           <option value="delivered">Delivered</option>
           <option value="cancelled">Cancelled</option>
         </select></span>
+      <!-- LogOut -->
+      <span class="logOut"><button class="btn btn-warning" @click="logOut">Log Out</button></span>
+
       <!-- Table of Orders -->
       <table id="orderTable" class="table">
         <thead class="thead-dark">
@@ -113,8 +116,15 @@ export default {
       alert("Updating payment. Please wait...")
     },
     filterThruStatus(){
-      this.filterStatus(this.paymentStatus, this.orderStatus)
-    }
+      const object = {payment:this.paymentStatus, order:this.orderStatus}
+      this.filterStatus(object)
+    },
+    logOut() {
+      var choice = confirm("Are you sure you want to log out?");
+      if (choice == true) {
+        this.$router.push({ name: "Login" });
+        }
+      }
   },
   created(){
     this.fetchOrders();
@@ -129,6 +139,9 @@ export default {
   background: #76CCA6;
   padding-bottom:18rem;
   .filterButton{
+    margin-left:30px;
+  }
+  .logOut{
     margin-left:30px;
   }
   .payementFilter{

@@ -39,8 +39,8 @@ const actions ={
         .then()
         .catch(({response})=> {alert(response.data.msg); commit("setError", response.data.msg)})
     },
-    filterStatus({commit}, payment, order){
-        axios.get(`${url}orders/status/${payment}/${order}`)
+    filterStatus({commit}, status){
+        axios.get(`${url}orders/status/${status.payment}/${status.order}`)
         .then((response) => commit ("setOrders", response.data.orders))
         .catch((error) => commit("setError", error.response.data.msg))
     }
