@@ -3,7 +3,7 @@
       <h2 class="pageTitle">Override-Orders</h2>
       <!-- Refresh Button -->
       <span><button class="btn btn-info" @click="Refresh">Refresh</button></span>
-      <span class="entries">Entries:{{orders.length}}</span>
+      <span class="entries">Entries:{{length}}</span>
       <!-- Date -->
       <span class="labelDate" >Date: &nbsp;</span> <input v-model="date" @change="dateClicked" type="date">
       <!-- Payment Status -->
@@ -98,7 +98,7 @@ export default {
     }
   },
   computed:{
-    ...mapState({ orders:(state) => state.orders.orders})
+    ...mapState({ orders:(state) => state.orders.orders, length:(state) => state.orders.length})
   },
   methods:{
     ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder"]),

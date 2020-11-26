@@ -4,7 +4,8 @@ import axios from 'axios'
 // initial state
 const state = () => ({
     orders:[],
-    error:""
+    error:"",
+    length:0
 });
 
 // Getters
@@ -15,7 +16,7 @@ const actions ={
     fetchOrders({commit}){
         axios
         .get(`/api/orders/`)
-        .then((response) => commit ("setOrders", response.data.orders))
+        .then((response) => commit ("setOrders", response.data))
         .catch((error) => commit("setError", error.response.data.msg))
     },
     deleteOrder({commit} ,id){
@@ -25,7 +26,7 @@ const actions ={
     },
     searchByDate({commit}, date){
         axios.get(`/api/orders/date/${date}`)
-        .then((response) => commit("setOrders", response.data.orders))
+        .then((response) => commit("setOrders", response.data))
         .catch((error) => commit("setError", error.response.data.msg))
     },
     setToDelivered({commit}, id){
@@ -40,12 +41,11 @@ const actions ={
     },
     filterStatus({commit}, status){
         axios.get(`/api/orders/status/${status.payment}/${status.order}`)
-        .then((response) => commit ("setOrders", response.data.orders))
+        .then((response) => commit ("setOrders", response.data))
         .catch((error) => commit("setError", error.response.data.msg))
     },
     cancelOrder({commit}, id){
         axios.patch(`/api/orders/order/cancel/${id}`)
-
         .then(response => {alert(response.data.msg);window.location.reload();})
         .catch((error) => commit("setError", error.response.data.msg))
     }
@@ -53,8 +53,9 @@ const actions ={
 
 // Mutations
 const mutations = {
-    setOrders: (state, orders) => {
-        state.orders = orders
+    setOrders: (state, data) => {
+        state.orders = data.orders
+        state.length = data.results
     },
     setError:(state, error) => {
         state.error = error
