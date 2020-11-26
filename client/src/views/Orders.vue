@@ -10,13 +10,11 @@
       <span class="payementFilter">Payment: &nbsp;&nbsp;<select @change="filterThruStatus"  v-model="paymentStatus">
           <option value="processing">Processing</option>
           <option value="paid">Paid</option>
-          <option value="cancelled">Cancelled</option>
         </select></span>
       <!-- Order Status -->
       <span class="payementFilter">Order: &nbsp;&nbsp;<select @change="filterThruStatus" v-model="orderStatus">
           <option value="processing">Processing</option>
           <option value="delivered">Delivered</option>
-          <option value="cancelled">Cancelled</option>
         </select></span>
       <!-- LogOut -->
       <span class="logOut"><button class="btn btn-warning" @click="logOut">Log Out</button></span>
@@ -68,7 +66,7 @@
      order.user.full_address.house_number, order.user.full_address.street_name, order.user.full_address.province, order.user.full_address.city, order.user.full_address.district, order.user.full_address.barangay)" class="btn btn-success">
               <i class="far fa-edit"></i>
             </button>
-            <button
+            <button @click="startDelete(order._id)"
               class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </button>
@@ -187,7 +185,7 @@ export default {
 .container{
   
   background: #76CCA6;
-  padding-bottom:18rem;
+  padding-bottom:20rem;
   .filterButton{
     margin-left:30px;
   }
