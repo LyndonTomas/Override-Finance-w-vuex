@@ -22,7 +22,7 @@ const actions ={
     deleteOrder({commit} ,id){
         axios.patch(`/api/orders/delete/${id}`)
         .then(response => {alert(response.data.msg);window.location.reload();})
-        .catch((error) => commit("setError", error.response.data.msg))
+        .catch((error) => {commit("setError", error.response.data.msg); alert(error.response.data.msg)})
     },
     searchByDate({commit}, date){
         axios.get(`/api/orders/date/${date}`)
