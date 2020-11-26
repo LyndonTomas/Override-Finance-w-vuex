@@ -10,11 +10,13 @@
       <span class="payementFilter">Payment: &nbsp;&nbsp;<select @change="filterThruStatus"  v-model="paymentStatus">
           <option value="processing">Processing</option>
           <option value="paid">Paid</option>
+          <option value="cancelled">Cancelled</option>
         </select></span>
       <!-- Order Status -->
       <span class="payementFilter">Order: &nbsp;&nbsp;<select @change="filterThruStatus" v-model="orderStatus">
           <option value="processing">Processing</option>
           <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
         </select></span>
       <!-- LogOut -->
       <span class="logOut"><button class="btn btn-warning" @click="logOut">Log Out</button></span>
@@ -37,6 +39,7 @@
           <tr
             v-for="order in orders"
             v-bind:item="order"
+            v-bind:class="{'is-cancelled': order.order_status == 'Cancelled'}"
             v-bind:key="order._id">
 
           <td scope="row"><strong><a href="#">{{ order._id }}</a></strong></td>
@@ -52,10 +55,12 @@
           <td>{{ order.item.quantity }}</td>
           <td>{{ order.payment_method }}</td>
           <td>
-            <button class="btn btn-dark" @click="finishPayment(order._id)">Paid</button>
+            <button v-if="order.payment_status == 'Processing'" class="btn btn-dark" @click="finishPayment(order._id)">Paid</button>
+            <span  v-else><p>{{order.payment_status}}</p></span>
           </td>
           <td>
-            <button class="btn btn-light" @click="finishDelivery(order._id)">Delivered</button>
+            <button v-if="order.order_status =='Processing'" class="btn btn-light" @click="finishDelivery(order._id)">Delivered</button>
+            <span  v-else><p>{{order.order_status}}</p></span>
           </td>
           <td>
             &#8369; &nbsp;
@@ -69,6 +74,9 @@
             <button @click="startDelete(order._id)"
               class="btn btn-danger">
               <i class="fas fa-trash"></i>
+            </button>
+            <button @click="cancel(order._id)" class="btn btn-warning">
+              <i class="far fa-times-circle"></i>
             </button>
           </td>
         </tr>
@@ -93,13 +101,12 @@ export default {
     ...mapState({ orders:(state) => state.orders.orders})
   },
   methods:{
-    ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid"]),
+    ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder"]),
     formatDate(date){
       return new Date(date).toLocaleDateString();
     },
     startDelete(id){
       this.deleteOrder(id);
-      window.location.reload()
     },
     Refresh(){
       window.location.reload()
@@ -118,6 +125,9 @@ export default {
     filterThruStatus(){
       const object = {payment:this.paymentStatus, order:this.orderStatus}
       this.filterStatus(object)
+    },
+    cancel(id){
+      this.cancelOrder(id);
     },
     logOut() {
       var choice = confirm("Are you sure you want to log out?");
@@ -183,6 +193,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .container{
+
+  .is-cancelled{
+    background: #2B2445;
+    color:white;
+  }
   
   background: #76CCA6;
   padding-bottom:20rem;

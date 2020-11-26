@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-const url = "http://localhost:5000/api/";
 
 // initial state
 const state = () => ({
@@ -15,33 +14,39 @@ const getters ={};
 const actions ={
     fetchOrders({commit}){
         axios
-        .get(`${url}orders/`)
+        .get(`/api/orders/`)
         .then((response) => commit ("setOrders", response.data.orders))
         .catch((error) => commit("setError", error.response.data.msg))
     },
     deleteOrder({commit} ,id){
-        axios.patch(`${url}orders/delete/${id}`)
+        axios.patch(`/api/orders/delete/${id}`)
         .then()
         .catch((error) => commit("setError", error.response.data.msg))
     },
     searchByDate({commit}, date){
-        axios.get(`${url}orders/date/${date}`)
+        axios.get(`/api/orders/date/${date}`)
         .then((response) => commit("setOrders", response.data.orders))
         .catch((error) => commit("setError", error.response.data.msg))
     },
     setToDelivered({commit}, id){
-        axios.patch(`${url}orders/delivered/${id}`)
-        .then()
+        axios.patch(`/api/orders/delivered/${id}`)
+        .then(response => {alert(response.data.msg);window.location.reload();})
         .catch(({response})=> {alert(response.data.msg); commit("setError", response.data.msg)})
     },
     setToPaid({commit}, id){
-        axios.patch(`${url}orders/paid/${id}`)
-        .then()
+        axios.patch(`/api/orders/paid/${id}`)
+        .then(response => {alert(response.data.msg);window.location.reload();})
         .catch(({response})=> {alert(response.data.msg); commit("setError", response.data.msg)})
     },
     filterStatus({commit}, status){
-        axios.get(`${url}orders/status/${status.payment}/${status.order}`)
+        axios.get(`/api/orders/status/${status.payment}/${status.order}`)
         .then((response) => commit ("setOrders", response.data.orders))
+        .catch((error) => commit("setError", error.response.data.msg))
+    },
+    cancelOrder({commit}, id){
+        axios.patch(`/api/orders/order/cancel/${id}`)
+
+        .then(response => {alert(response.data.msg);window.location.reload();})
         .catch((error) => commit("setError", error.response.data.msg))
     }
 }

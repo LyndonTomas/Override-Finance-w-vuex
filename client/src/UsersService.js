@@ -1,13 +1,12 @@
 import axios from 'axios';
-const url = "http://localhost:5000/api/users/";
 
 class UserService{
     static login(email, password){
-        return axios.get(`${url}${email}/${password}`)
+        return axios.get(`/api/users/${email}/${password}`)
     }
     static getUsers(){
         return new Promise ((resolve, reject)=>{
-            axios.get(url).then((res)=>{
+            axios.get("/api/users/").then((res)=>{
                 const data = res.data;
                 resolve(
                     data.map(users =>({

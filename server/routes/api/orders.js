@@ -5,6 +5,7 @@ require("dotenv/config");
 const router = express.Router();
 const url = 'http://syntax-api-server.herokuapp.com/api/orders/';
 
+
 // TODO
 // Get Date
 // Done
@@ -23,6 +24,7 @@ router.get("/date/:date", async (req, res) => {
     .json(response.data))
 });
 
+
 // TODO
 // Get All orders
 // DONE
@@ -33,6 +35,7 @@ router.get("/", async (req, res) => {
     .catch(({ response }) => res.status(response.status).json(response.data));
 });
 
+
 // TODO
 // Get Specific Order using order_id
 // Done
@@ -40,6 +43,15 @@ router.get("/order/:id", async(req, res) =>{
   axios
   .get(`${url}order?id=${req.params.id}`)
   .then((response) => res.status(response.status).json(response.data))
+    .catch(({ response }) => res.status(response.status).json(response.data));
+});
+
+// TODO
+// Cancel the entire order
+router.patch("/order/cancel/:id", async(req, res) =>{
+  axios
+    .patch(`${url}cancel?id=${req.params.id}`)
+    .then((response) => res.status(response.status).json(response.data))
     .catch(({ response }) => res.status(response.status).json(response.data));
 })
 
