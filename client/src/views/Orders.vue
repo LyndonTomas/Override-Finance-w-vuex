@@ -3,11 +3,16 @@
       <h2 class="pageTitle">Override-Orders</h2>
       <!-- Refresh Button -->
       <span><button class="btn btn-info" @click="Refresh">Refresh</button></span>
+      <!-- Entries -->
       <span class="entries">Entries:{{length}}</span>
+      <!-- Help -->
+      <span id="getHelp" class="btn btn-outline-danger" @click="getSomeHelp">Help</span>
       <!-- Date -->
       <span class="labelDate" >Date: &nbsp;</span> <input v-model="date" @change="dateClicked" type="date">
-      <!-- Payment Status -->
-      <span class="payementFilter">Payment: &nbsp;&nbsp;<select @change="filterThruStatus"  v-model="paymentStatus">
+
+      <!-- Filter Status -->
+      <span class="filter-statuts">
+        <span class="payementFilter">Payment: &nbsp;&nbsp;<select @change="filterThruStatus"  v-model="paymentStatus">
           <option value="processing">Processing</option>
           <option value="paid">Paid</option>
           <option value="cancelled">Cancelled</option>
@@ -18,6 +23,7 @@
           <option value="delivered">Delivered</option>
           <option value="cancelled">Cancelled</option>
         </select></span>
+      </span>
       <!-- LogOut -->
       <span class="logOut"><button class="btn btn-warning" @click="logOut">Log Out</button></span>
 
@@ -135,6 +141,9 @@ export default {
         this.$router.push({ name: "Login" });
         }
       },
+      getSomeHelp(){
+        this.$router.push({ name: "Help" });
+      },
       showReceipt(id, date, fname, lname, itemName, price, quantity, payment_method, payment_status, fee, 
      houseNumber, streetName, province, city, district, barangay){
        var pdf = new jsPDF();
@@ -194,32 +203,46 @@ export default {
 <style lang="scss" scoped>
 .container{
 
+  background: #76CCA6;
+  padding: 0px;
+  margin-left: 10%;
+  font-family: Kumbh Sans, Helvetica, Arial, sans-serif;
+  width: 100%;
+  font-family: Kumbh Sans, Helvetica, Arial, sans-serif;
+  // background: rgb(59, 50, 50);
+
+  .logOut{
+    margin-left:15px;
+  }
+  #getHelp{
+    margin-left:30px;
+  }
+  .filter-statuts{
+    margin-left:13px;
+    border-radius:12px;
+    padding: 8px;
+    margin-right: 8px;
+    background: #2B2445;
+    color: white;
+  }
   .is-cancelled{
     background: #2B2445;
     color:white;
   }
   
-  background: #76CCA6;
-  padding-bottom:20rem;
-  .filterButton{
-    margin-left:30px;
-  }
-  .logOut{
-    margin-left:30px;
-  }
   .payementFilter{
-    margin-left:30px;
+    margin-left:15px;
     font-size:1.2rem;
     font-weight: bold;
   }
   .labelDate {
-    margin-left:30px;
+    margin-left:15px;
     font-size:1.2rem;
     font-weight: bold;
   }
   .entries{
     color:#2C3F3C;
-    margin-left:30px;
+    margin-left:15px;
     font-size:1.2rem;
     font-weight: bold;
   }
@@ -238,15 +261,15 @@ export default {
   }
   #orderTable {
     margin-top:2rem;
-    width: 100%;
+    // width: 100%;
+    // margin-left:auto;
+    // margin-right:auto;
     thead {
       th {
         h4 {
-          width: auto;
           text-align: center;
           &:hover {
             transition: 0.4s all ease-in-out;
-            text-decoration: underline;
           }
         }
       }

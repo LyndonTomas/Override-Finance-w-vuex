@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-
 // initial state
 const state = () => ({
     orders:[],
     error:"",
-    length:0
+    length:0,
+    specificOrder:[]
 });
 
 // Getters
