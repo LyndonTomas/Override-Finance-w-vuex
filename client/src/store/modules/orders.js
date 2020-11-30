@@ -48,6 +48,11 @@ const actions ={
         axios.patch(`/api/orders/order/cancel/${id}`)
         .then(response => {alert(response.data.msg);window.location.reload();})
         .catch((error) => commit("setError", error.response.data.msg))
+    },
+    getSpecificOrder({commit}, id){
+        axios.get(`/api/orders/order/${id}`)
+        .then((response) => commit("setOrder", response.data))
+        .catch((error) => commit("setError", error.response.data.msg))
     }
 }
 
@@ -59,6 +64,9 @@ const mutations = {
     },
     setError:(state, error) => {
         state.error = error
+    },
+    setOrder: (state, data) => {
+        state.specificOrder = data.order;
     }
 }
 

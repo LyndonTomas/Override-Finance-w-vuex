@@ -67,6 +67,15 @@ router.patch("/delete/:id", async (req, res) => {
   .catch(({ response }) => res.status(response.status).json(response.data));
 });
 
+// TODO
+// Permanently delete an order (last resort)
+router.patch("/admin/delete/:id", async(req, res) =>{
+  axios.patch(`${url}admin/delete?id=${req.params.id}`)
+  .then((response) => {
+    res.status(response.status).json(response.data);
+    alert(response.data.msg)})
+  .catch(({ response }) => res.status(response.status).json(response.data));
+})
 
 // Updating a Payment Status
 // Done
@@ -101,5 +110,7 @@ router.patch("/paid/:id", async (req, res) =>{
   .then((response) => res.status(response.status).json(response.data))
   .catch(({ response }) => res.status(response.status).json(response.data));
 })
+
+
 
 module.exports = router;

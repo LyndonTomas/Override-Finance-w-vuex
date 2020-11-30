@@ -55,7 +55,7 @@
               {{order.user.fullname.lastname}}</strong>
           </td>
           <td>
-            <a :href="'https://override-syntax.herokuapp.com/item/' + order.item.id">
+            <a target="_blank" :href="'https://override-syntax.herokuapp.com/item/' + order.item.id">
             {{ order.item.name }}</a>
           </td>
           <td>{{ order.item.quantity }}</td>
@@ -196,6 +196,11 @@ export default {
       var total_price = currency +" "+ total;
       pdf.text("Total: ", 5, 140);
       pdf.text(total_price.toString(), 30, 140);
+
+      // Date fo Print
+      var DATE = new Date().toLocaleString();
+      pdf.text("Date of Print: ", 5, 150);
+      pdf.text(DATE.toString(), 38, 150);
 
        // Saving PDF 
        pdf.save('report.pdf');
