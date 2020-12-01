@@ -15,10 +15,10 @@ router.get('/', async (req, res) =>{
 // Used when loggin in
 router.get('/:email/:password', async(req, res) =>{
     const users = await loadUsers();
-    const result = await users.find({email:req.params.email, password:req.params.password}).toArray();
-    if(result.length > 0){
+    const result = await users.findOne({email:req.params.email, password:req.params.password});
+    if(result){
         // Will send if there is a match
-        res.status(202).send()
+        res.status(202).json(result)
     }else{
         res.status(201).send()
     }

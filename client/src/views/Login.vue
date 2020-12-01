@@ -90,10 +90,12 @@ export default {
                     this.email = ""
                     this.password = ""
                 }
-                // End oof Validation
+                // End of Validation
                 this.logIn = await UserService.login(this.email, this.password)
                 if(this.logIn.status == 202){
-                    sessionStorage.setItem('isLoggedIn', 'true')
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    sessionStorage.setItem('username', this.logIn.data.username);
+                    sessionStorage.setItem('isAdmin', this.logIn.data.isAdmin);
                     setTimeout(() => this.redirect(), 1000)
                 }else if(this.logIn.status == 201){
                     alert("This credentials are not yet registered in the database")

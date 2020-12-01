@@ -48,8 +48,11 @@
             v-bind:class="{'is-cancelled': order.order_status == 'Cancelled'}"
             v-bind:key="order._id">
 
-          <td scope="row"><strong><a href="#">{{ order._id }}</a></strong></td>
-          <td>{{ formatDate(order.created_at) }}</td>
+          <!-- <td scope="row"><strong><b id="ID" ><router-link :to="`/view/${order._id}`">{{ order._id }}</router-link></b></strong></td> -->
+          <td scope="row"><strong><b id="ID" @click="checkOrder(order._id)">{{ order._id }}</b></strong></td>
+          
+          <td>{{ formatDate(order.created_at)}}</td>
+
           <td>
             <strong> {{ order.user.fullname.firstname }}&nbsp;
               {{order.user.fullname.lastname}}</strong>
@@ -107,7 +110,7 @@ export default {
     ...mapState({ orders:(state) => state.orders.orders, length:(state) => state.orders.length})
   },
   methods:{
-    ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder"]),
+    ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder", "getSpecificOrder"]),
     formatDate(date){
       return new Date(date).toLocaleDateString();
     },
@@ -138,7 +141,7 @@ export default {
     logOut() {
       var choice = confirm("Are you sure you want to log out?");
       if (choice == true) {
-        sessionStorage.removeItem("isLoggedIn");
+        sessionStorage.clear();
         this.$router.push({ name: "Login" });
         }
       },
@@ -204,6 +207,9 @@ export default {
 
        // Saving PDF 
        pdf.save('report.pdf');
+    },
+    checkOrder(id){
+      this.$router.push({ path:`/view/${id}`});
     }
   },
   created(){
@@ -293,6 +299,11 @@ export default {
     }
     tbody {
       tr {
+        td{
+          #ID{
+            cursor: pointer;
+          }
+        }
         &:hover {
           background-color: #82d682;
           transition: 0.4s all ease-in-out;

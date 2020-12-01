@@ -72,6 +72,12 @@ methods:{
     backToOrders(){
         this.$router.push({ name: "Orders" });
     }
+},
+created(){
+  if(sessionStorage.getItem('isLoggedIn') != "true"){
+      alert("Please log in first!");
+      this.$router.push({ name: "Login" });
+    }
 }
 
 }

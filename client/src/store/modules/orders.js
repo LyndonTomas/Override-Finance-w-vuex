@@ -5,7 +5,7 @@ const state = () => ({
     orders:[],
     error:"",
     length:0,
-    specificOrder:[]
+    specificOrder:{}
 });
 
 // Getters
@@ -66,7 +66,7 @@ const mutations = {
         state.error = error
     },
     setOrder: (state, data) => {
-        state.specificOrder = data.order;
+        state.specificOrder = data.order
     }
 }
 
