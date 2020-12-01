@@ -35,7 +35,6 @@ router.get("/", async (req, res) => {
     .catch(({ response }) => res.status(response.status).json(response.data));
 });
 
-
 // TODO
 // Get Specific Order using order_id
 // Done
@@ -45,6 +44,16 @@ router.get("/order/:id", async(req, res) =>{
   .then((response) => res.status(response.status).json(response.data))
     .catch(({ response }) => res.status(response.status).json(response.data));
 });
+
+// TODO
+// Admin Delete(last resort)
+router.patch("/admin/delete/:id", async(req, res) =>{
+  axios.patch(`${url}admin/delete?id=${req.params.id}`)
+  .then((response) => {
+    res.status(response.status).json(response.data);
+    alert(response.data.msg)})
+  .catch(({ response }) => res.status(response.status).json(response.data));
+})
 
 // TODO
 // Cancel the entire order
@@ -67,15 +76,7 @@ router.patch("/delete/:id", async (req, res) => {
   .catch(({ response }) => res.status(response.status).json(response.data));
 });
 
-// TODO
-// Permanently delete an order (last resort)
-router.patch("/admin/delete/:id", async(req, res) =>{
-  axios.patch(`${url}admin/delete?id=${req.params.id}`)
-  .then((response) => {
-    res.status(response.status).json(response.data);
-    alert(response.data.msg)})
-  .catch(({ response }) => res.status(response.status).json(response.data));
-})
+
 
 // Updating a Payment Status
 // Done

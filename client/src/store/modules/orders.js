@@ -53,6 +53,12 @@ const actions ={
         axios.get(`/api/orders/order/${id}`)
         .then((response) => commit("setOrder", response.data))
         .catch((error) => commit("setError", error.response.data.msg))
+    },
+    adminDelete({commit}, id){
+        axios.patch(`/api/orders/admin/delete/${id}`)
+        .then(response => {alert(response.data.msg);
+            window.location.reload();})
+        .catch((error) => commit("setError", error.response.data.msg))
     }
 }
 

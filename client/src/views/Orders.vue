@@ -47,10 +47,57 @@
             v-bind:item="order"
             v-bind:class="{'is-cancelled': order.order_status == 'Cancelled'}"
             v-bind:key="order._id">
+            <!-- OrderId -->
+          <td scope="row"><span data-toggle="modal" data-target="#ItemDescription"><b id="ID" >{{ order._id }}</b></span></td>
+          <!-- Modal Start -->
+              <!-- Modal -->
+                <div class="modal fade" id="ItemDescription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h5><b>Order ID: </b></h5>{{order._id}}
+                        <h5><b>Payment Method: </b></h5>{{order.payment_method}}
+                        <h5><b>Payment Status: </b></h5>{{order.payment_status}}
+                        <h5><b>Paid On: </b></h5>{{order.paid_on}}
+                        <h5><b>Delivered On: </b></h5>{{order.delivered_on}}
+                        <h5><b>Order Status: </b></h5>{{order.order_status}}
+                        <h5><b>Fee: </b></h5>{{order.fee}}
 
-          <!-- <td scope="row"><strong><b id="ID" ><router-link :to="`/view/${order._id}`">{{ order._id }}</router-link></b></strong></td> -->
-          <td scope="row"><strong><b id="ID" @click="checkOrder(order._id)">{{ order._id }}</b></strong></td>
-          
+                        <center><h4><b>Customer Details</b></h4></center>
+                        <h5><b>Customer Name: </b></h5>{{order.user.fullname.firstname}} {{order.user.fullname.lastname}}
+                        <h5><b>Full Address: </b></h5>{{order.user.full_address.house_number}} {{order.user.full_address.street_name}} {{order.user.full_address.barangay}} {{order.user.full_address.district}} {{order.user.full_address.city}} {{order.user.full_address.province}}   
+                        <h5><b>Email: </b></h5>{{order.email}}
+                        <h5><b>Mobile Number: </b></h5>{{order.mobile_number}}
+
+                        <center><h4><b>Item Details</b></h4></center>
+                        <h5><b>Item ID: </b></h5>{{order.item.id}}
+                        <h5><b>Item Name: </b></h5>{{order.item.name}}   
+                        <h5><b>Price per Item: </b></h5>{{order.item.price}}
+                        <h5><b>Quantity: </b></h5>{{order.item.quantity}}
+
+                        <center><h4><b>Shipping Address</b></h4></center>
+                        <h5><b>Full Address</b></h5>{{order.shipping_address.house_number}} {{order.shipping_address.street_name}} {{order.shipping_address.barangay}} {{order.shipping_address.district}} {{order.shipping_address.city}} {{order.shipping_address.province}}
+                        <h5><b>Item Name: </b></h5>{{order.item.name}}   
+                        <h5><b>Price per Item: </b></h5>{{order.item.price}}
+                        <h5><b>Quantity: </b></h5>{{order.item.quantity}}
+                        <br>
+                        <h5><b>Ordered At: </b></h5> {{order.created_at}}
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" v-if="this.isAdmin == 'true'" @click="AdminDelete(order._id)">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          <!-- Modal End -->
           <td>{{ formatDate(order.created_at)}}</td>
 
           <td>
@@ -101,6 +148,7 @@ export default {
   name: 'Orders',
   data(){
     return{
+      isAdmin: sessionStorage.getItem('isAdmin'),
       date:"",
       paymentStatus:"",
       orderStatus:""
@@ -110,7 +158,7 @@ export default {
     ...mapState({ orders:(state) => state.orders.orders, length:(state) => state.orders.length})
   },
   methods:{
-    ...mapActions(["fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder", "getSpecificOrder"]),
+    ...mapActions(["adminDelete","fetchOrders","filterStatus", "deleteOrder", "searchByDate", "setToDelivered", "setToPaid", "cancelOrder", "getSpecificOrder"]),
     formatDate(date){
       return new Date(date).toLocaleDateString();
     },
@@ -194,7 +242,6 @@ export default {
       province.toString(), 30, 120);
 
       // Total
-      
       var total = (price*quantity)+fee;
       var total_price = currency +" "+ total;
       pdf.text("Total: ", 5, 140);
@@ -208,8 +255,11 @@ export default {
        // Saving PDF 
        pdf.save('report.pdf');
     },
-    checkOrder(id){
-      this.$router.push({ path:`/view/${id}`});
+    AdminDelete(id){
+      var choice = confirm("Are you sure you want to Admin delete the order?");
+      if (choice == true) {
+        this.adminDelete(id);
+        }
     }
   },
   created(){
@@ -225,7 +275,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .container{
-
+  #ItemDescription{
+    color: black;
+  }
   background: #76CCA6;
   padding: 0px;
   margin-left: 10%;
@@ -300,6 +352,9 @@ export default {
     tbody {
       tr {
         td{
+          .modal-body{
+            color: black;
+          }
           #ID{
             cursor: pointer;
           }
