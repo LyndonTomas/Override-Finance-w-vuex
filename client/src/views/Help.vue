@@ -3,9 +3,7 @@
       <h1 class="pageTitle">Help Page</h1>
       <button id="backToHome" class="btn btn-link" @click="backToOrders()"> >> Back to Home</button>
       <span><h4>Here are some helpful tips in using the Finance-Order System...</h4></span>
-    
-        
-      
+  
       <br>
       <b><p>The puprose of the Override-Orders</p></b>
       <ol>
@@ -15,21 +13,23 @@
           <li>To know the number of orders per day.</li>
       </ol>
       <p>In this page, the developer will discuss every feature that any user might encounter, within this system.</p>
-      <h3>I. Login Page</h3>
+      <br>
+      <center><h3>I. Login Page</h3></center>
       <b>In this page, there are only 2 errors that a user might encounter. Here are the possible solutions.</b>
       <br>
       <br>
         <img id="login-error-1" src="./help/loginError1.jpg" alt="">
-        <center><p><b>Image 1. Incomplete fields</b></p></center>
+        <center><p><b> Incomplete fields</b></p></center>
         <center><p>To address the situation, make sure that both fields (email and password) are provided with the necessary info.</p></center>
         <br>
         <img id="login-error-2" src="./help/loginError2.jpg" alt="">
-        <center><p><b>Image 2. Unknown credentials</b></p></center>
+        <center><p><b> Unknown credentials</b></p></center>
         <center><p>To address the situation, kindly contact the developers to add a new credential and its corresponding user type. This would prbably occur when the 
             email and password provided aren't registered in the user's database. Also, make sure the spelling and the proper cases are used since this is <i>case-sensitive</i>.</p></center>
-      <h3>II. Order Page</h3>
+      <br>
+      <center><h3>II. Order Page</h3></center>
       <img class="img1" src="./help/reset.jpg" alt="Order Page">
-      <center><b>Image 3. Order Page Sample</b></center>
+      <center><b> Order Page Sample</b></center>
       <br>
       <!-- Refresh -->
       <b><p>A. Refresh</p></b>
@@ -58,10 +58,35 @@
             <br>
             <img class="cancel-sample" src="./help/cancel-order-result.jpg" alt="">
             <center><b>Order sample: Cancelled</b></center>
+            <br>
       <b><p>K. Item Reference</p></b>
         <p>Once clicked, you will be directed to the online store wherein the item is displayed along with with images and descriptions.</p>
       <b><p>L. Stauts Filter</p></b>
         <p>This filter is used ony to check the status of the payment and the delivery of the order. This will only funtion when both fileds have values in them (processing, paid, and cancelled for payemnt while processing, delivered, and cancelled are for order).</p>
+      <br>
+
+      <center><h3>III. User Types</h3></center>
+      <b><p>A. View-Only User</p></b>
+      <p>Since there are many crucial information that are being displayed, a customer may only get a copy of their receipt thru an employee (normal-user-type).</p>
+      <b><p>B. Employee (Normal User)</p></b>
+      <p>This user may only change the status of the payment and the order (delivery). This user type may also get a receipt that contains information about the transaction</p>
+      <b><p>C. Admin (Super User)</p></b>
+      <p>This user-type may delete the order or cancel. <b>Note: The order must be cancelled before deleting the order.</b></p>
+      <center><img src="./help/user-only-options.jpg" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./help/admin-only-option.jpg" alt=""></center>
+      <br>
+      <center><b><p>The difference in capabailities of normal user and super user (from left to right).</p></b></center>
+      <br><br>
+      <center><h3> IV. Individual Orders</h3></center>
+      <br>
+      <center><img src="./help/specific-order.jpg" class="specific-order-demo" alt=""></center>
+      <br><br>
+      <b><p>Specific Order sample</p></b>
+      <p>This will appear when the user clicked the ID of a specific order.</p>
+      <br>
+      <b><p>Admin Difference</p></b>
+      <center><img src="./help/order-user-only-demo.jpg" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./help/order-admin-only-demo.jpg"></center>
+      <br>
+      <p><b>The difference between user only and super user in the specific order (left to right).</b></p>
   </div>
 </template>
 
@@ -92,6 +117,12 @@ font-family: Kumbh Sans, Helvetica, Arial, sans-serif;
 width: 100%;
 font-family: Kumbh Sans, Helvetica, Arial, sans-serif;
 padding-bottom: 6em;
+padding-bottom: 10rem;
+
+.specific-order-demo{
+  width: 400px;
+}
+
 .img1{
     width: 800px;
     margin-left: auto;
