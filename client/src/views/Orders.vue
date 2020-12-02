@@ -84,8 +84,7 @@
                         <center><h4><b>Shipping Address</b></h4></center>
                         <h5><b>Full Address</b></h5>{{order.shipping_address.house_number}} {{order.shipping_address.street_name}} {{order.shipping_address.barangay}} {{order.shipping_address.district}} {{order.shipping_address.city}} {{order.shipping_address.province}}
                         <h5><b>Item Name: </b></h5>{{order.item.name}}   
-                        <h5><b>Price per Item: </b></h5>{{order.item.price}}
-                        <h5><b>Quantity: </b></h5>{{order.item.quantity}}
+                        <br>
                         <br>
                         <h5><b>Ordered At: </b></h5> {{order.created_at}}
                       </div>
