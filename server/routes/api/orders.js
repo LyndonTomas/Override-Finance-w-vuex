@@ -68,13 +68,12 @@ router.patch("/order/cancel/:id", async(req, res) =>{
 // TODO
 // Delete an Order
 // Done 
-router.patch("/delete/:id", async (req, res) => {
+router.patch("/delete/:id",  (req, res) => {
   axios.patch(`${url}delete?id=${req.params.id}`)
-  .then((response) => {
-    res.status(response.status).json(response.data);
-    alert(response.data.msg)})
+  .then((response) => res.status(response.status).json(response.data))
   .catch(({ response }) => res.status(response.status).json(response.data));
-});
+})
+    // alert(response.data.msg);
 
 
 

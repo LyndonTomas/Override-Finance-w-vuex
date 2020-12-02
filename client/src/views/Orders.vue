@@ -72,8 +72,8 @@
                         <center><h4><b>Customer Details</b></h4></center>
                         <h5><b>Customer Name: </b></h5>{{order.user.fullname.firstname}} {{order.user.fullname.lastname}}
                         <h5><b>Full Address: </b></h5>{{order.user.full_address.house_number}} {{order.user.full_address.street_name}} {{order.user.full_address.barangay}} {{order.user.full_address.district}} {{order.user.full_address.city}} {{order.user.full_address.province}}   
-                        <h5><b>Email: </b></h5>{{order.user.email}}
-                        <h5><b>Mobile Number: </b></h5>{{order.user.mobile_number}}
+                        <h5><b>Email: </b></h5>{{order.email}}
+                        <h5><b>Mobile Number: </b></h5>{{order.mobile_number}}
 
                         <center><h4><b>Item Details</b></h4></center>
                         <h5><b>Item ID: </b></h5>{{order.item.id}}
@@ -84,14 +84,15 @@
                         <center><h4><b>Shipping Address</b></h4></center>
                         <h5><b>Full Address</b></h5>{{order.shipping_address.house_number}} {{order.shipping_address.street_name}} {{order.shipping_address.barangay}} {{order.shipping_address.district}} {{order.shipping_address.city}} {{order.shipping_address.province}}
                         <h5><b>Item Name: </b></h5>{{order.item.name}}   
-                        <br>
+                        <h5><b>Price per Item: </b></h5>{{order.item.price}}
+                        <h5><b>Quantity: </b></h5>{{order.item.quantity}}
                         <br>
                         <h5><b>Ordered At: </b></h5> {{order.created_at}}
                       </div>
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" v-if="this.isAdmin == 'true'" @click="AdminDelete(order._id)">Admin Delete</button>
+                        <button type="button" class="btn btn-danger" v-if="this.isAdmin == 'true'" @click="AdminDelete(order._id)">Save changes</button>
                       </div>
                     </div>
                   </div>
@@ -126,10 +127,11 @@
      order.user.full_address.house_number, order.user.full_address.street_name, order.user.full_address.province, order.user.full_address.city, order.user.full_address.district, order.user.full_address.barangay, order.order_status)" class="btn btn-success">
               <i class="far fa-edit"></i>
             </button>
-            <button v-if="this.isAdmin == 'true'" @click="startDelete(order._id)"
-              class="btn btn-danger">
+
+            <button @click="startDelete(order._id)" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </button>
+
             <button v-if="this.isAdmin == 'true'" @click="cancel(order._id)" class="btn btn-warning">
               <i class="far fa-times-circle"></i>
             </button>
@@ -356,9 +358,6 @@ export default {
           }
           #ID{
             cursor: pointer;
-            &:hover{
-              text-decoration: underline;
-            }
           }
         }
         &:hover {

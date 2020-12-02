@@ -49,7 +49,7 @@
       <b><p>F. Generate Receipt</p></b>
         <p>Generates a receipt containing information about the buyer and the product. This receipt will be automatically downloaded as a pdf file.</p>
       <b><p>G. Delete</p></b>
-        <p>Deletes any non-processing order, but this will only function if the order is only cancelled first.</p>
+        <p>Deletes any order, will only function when the entire order is cancelled or paid and delivered (which is considered as DONE transaction).</p>
       <b><p>H. Cancel</p></b>
         <p>Changes the status of the order and the payment as cancelled.</p>
         <center><p><b>Notice:</b>The color of the row will change once the order is cancelled, and will reflect in the payment and orders area.</p></center>
@@ -59,6 +59,11 @@
             <img class="cancel-sample" src="./help/cancel-order-result.jpg" alt="">
             <center><b>Order sample: Cancelled</b></center>
             <br>
+      <b><p>I & J. Payment and Order Statuts</p></b>
+      <p>In here you can change the stauts from processing to paid (for payment) and delivered (for order)</p>
+      <center><img src="./help/processing.jpg" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./help/paid-delivered.jpg" alt=""></center>
+      <br>
+      <center><b><p>The stauts will appear once the button is clicked. The button will disappear once clicked (from left to right).</p></b></center>
       <b><p>K. Item Reference</p></b>
         <p>Once clicked, you will be directed to the online store wherein the item is displayed along with with images and descriptions.</p>
       <b><p>L. Stauts Filter</p></b>
@@ -79,6 +84,8 @@
       <center><h3> IV. Individual Orders</h3></center>
       <br>
       <center><img src="./help/specific-order.jpg" class="specific-order-demo" alt=""></center>
+      <br>
+      <center><b><p>Individual Order Demo</p></b></center>
       <br><br>
       <b><p>Specific Order sample</p></b>
       <p>This will appear when the user clicked the ID of a specific order.</p>
@@ -86,7 +93,8 @@
       <b><p>Admin Difference</p></b>
       <center><img src="./help/order-user-only-demo.jpg" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./help/order-admin-only-demo.jpg"></center>
       <br>
-      <p><b>The difference between user only and super user in the specific order (left to right).</b></p>
+      <center>
+      <p><b>The difference between user only and super user in the specific order (left to right).</b></p></center>
   </div>
 </template>
 
