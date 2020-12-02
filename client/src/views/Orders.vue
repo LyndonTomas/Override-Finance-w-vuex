@@ -92,7 +92,7 @@
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" v-if="this.isAdmin == 'true'" @click="AdminDelete(order._id)">Save changes</button>
+                        <button type="button" class="btn btn-danger" v-if="this.isAdmin == 'true'" @click="AdminDelete(order._id)">Admin Delete</button>
                       </div>
                     </div>
                   </div>
