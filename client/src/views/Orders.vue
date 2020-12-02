@@ -127,11 +127,11 @@
      order.user.full_address.house_number, order.user.full_address.street_name, order.user.full_address.province, order.user.full_address.city, order.user.full_address.district, order.user.full_address.barangay, order.order_status)" class="btn btn-success">
               <i class="far fa-edit"></i>
             </button>
-            <button @click="startDelete(order._id)"
+            <button v-if="this.isAdmin == 'true'" @click="startDelete(order._id)"
               class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </button>
-            <button @click="cancel(order._id)" class="btn btn-warning">
+            <button v-if="this.isAdmin == 'true'" @click="cancel(order._id)" class="btn btn-warning">
               <i class="far fa-times-circle"></i>
             </button>
           </td>
